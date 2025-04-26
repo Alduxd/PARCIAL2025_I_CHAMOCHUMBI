@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FutbolPeruano.Data;
 using FutbolPeruano.Models;
+using System.Collections.Generic;
 
 namespace FutbolPeruano.Controllers
 {
@@ -16,6 +17,17 @@ namespace FutbolPeruano.Controllers
         public PlayersController(FutbolPeruanoContext context)
         {
             _context = context;
+        }
+
+        // GET: Players
+        public async Task<IActionResult> Index()
+        {
+            var players = await _context.Players
+                .Include(p => p.Assignments)
+                .ThenInclude(a => a.Team)
+                .ToListAsync();
+                
+            return View(players);
         }
 
         // GET: Players/Create
@@ -54,10 +66,25 @@ namespace FutbolPeruano.Controllers
             return View(player);
         }
 
-        // GET: Players
-        public async Task<IActionResult> Index()
+        // GET: Players/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
-            return View(await _context.Players.ToListAsync());
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var player = await _context.Players
+                .Include(p => p.Assignments)
+                .ThenInclude(a => a.Team)
+                .FirstOrDefaultAsync(m => m.Id == id);
+                
+            if (player == null)
+            {
+                return NotFound();
+            }
+
+            return View(player);
         }
     }
 }

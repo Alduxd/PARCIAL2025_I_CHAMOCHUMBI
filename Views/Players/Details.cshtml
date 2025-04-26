@@ -1,0 +1,54 @@
+@model FutbolPeruano.Models.Player
+
+@{
+    ViewData["Title"] = "Detalles del Jugador";
+}
+
+<h1>@Model.Name</h1>
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <dl class="row">
+            <dt class="col-sm-4">Edad:</dt>
+            <dd class="col-sm-8">@Model.Age años</dd>
+            
+            <dt class="col-sm-4">Posición:</dt>
+            <dd class="col-sm-8">@Model.Position</dd>
+        </dl>
+    </div>
+</div>
+
+<h3>Equipos</h3>
+
+@if (Model.Assignments != null && Model.Assignments.Any())
+{
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>Equipo</th>
+                <th>Ciudad</th>
+                <th>Fecha de Ingreso</th>
+                <th>Notas</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var assignment in Model.Assignments)
+            {
+                <tr>
+                    <td>@assignment.Team.Name</td>
+                    <td>@assignment.Team.City</td>
+                    <td>@assignment.JoinDate.ToShortDateString()</td>
+                    <td>@assignment.Notes</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p class="alert alert-info">Este jugador aún no pertenece a ningún equipo.</p>
+}
+
+<div>
+    <a asp-action="Index" class="btn btn-secondary">Volver a la lista</a>
+</div>
