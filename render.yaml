@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: futbol-peruano
+    env: dotnet
+    buildCommand: dotnet publish -c Release -o out
+    startCommand: dotnet out/FutbolPeruano.dll
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: futbol-peruano-db
+          property: connectionString
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+
+databases:
+  - name: futbol-peruano-db
+    databaseName: futbolperuano
+    user: futbolperuano_user
