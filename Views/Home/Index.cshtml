@@ -1,0 +1,46 @@
+@{
+    ViewData["Title"] = "Inicio";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Fútbol Peruano</h1>
+    <p class="lead">Sistema de gestión de jugadores y equipos de fútbol peruano</p>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-header bg-success text-white">
+                <h5 class="card-title mb-0">Jugadores</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Administra el registro de jugadores de fútbol peruano.</p>
+                <a asp-controller="Players" asp-action="Index" class="btn btn-outline-success">Ir a Jugadores</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h5 class="card-title mb-0">Equipos</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Gestiona los equipos de fútbol del campeonato peruano.</p>
+                <a asp-controller="Teams" asp-action="Index" class="btn btn-outline-primary">Ir a Equipos</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-header bg-info text-white">
+                <h5 class="card-title mb-0">Asignaciones</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Asocia jugadores a equipos y consulta las asignaciones.</p>
+                <a asp-controller="Assignments" asp-action="Index" class="btn btn-outline-info">Ir a Asignaciones</a>
+            </div>
+        </div>
+    </div>
+</div>

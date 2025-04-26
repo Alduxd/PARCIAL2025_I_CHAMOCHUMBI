@@ -1,0 +1,59 @@
+@model FutbolPeruano.Models.Team
+
+@{
+    ViewData["Title"] = "Detalles del Equipo";
+}
+
+<h1>@Model.Name</h1>
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <dl class="row">
+            <dt class="col-sm-4">Ciudad:</dt>
+            <dd class="col-sm-8">@Model.City</dd>
+            
+            <dt class="col-sm-4">Fundación:</dt>
+            <dd class="col-sm-8">@(Model.FoundedDate.HasValue ? Model.FoundedDate.Value.ToShortDateString() : "N/A")</dd>
+            
+            <dt class="col-sm-4">Descripción:</dt>
+            <dd class="col-sm-8">@Model.Description</dd>
+        </dl>
+    </div>
+</div>
+
+<h3>Jugadores del Equipo</h3>
+
+@if (Model.Assignments != null && Model.Assignments.Any())
+{
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>Nombre</th>
+                <th>Edad</th>
+                <th>Posición</th>
+                <th>Fecha de Ingreso</th>
+                <th>Notas</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var assignment in Model.Assignments)
+            {
+                <tr>
+                    <td>@assignment.Player.Name</td>
+                    <td>@assignment.Player.Age</td>
+                    <td>@assignment.Player.Position</td>
+                    <td>@assignment.JoinDate.ToShortDateString()</td>
+                    <td>@assignment.Notes</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p class="alert alert-info">Este equipo aún no tiene jugadores asignados.</p>
+}
+
+<div>
+    <a asp-action="Index" class="btn btn-secondary">Volver a la lista</a>
+</div>
